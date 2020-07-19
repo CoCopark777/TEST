@@ -1,8 +1,7 @@
 # coding=utf-8
 import time
-import logging
 from selenium import webdriver
-from kuangjia import Test
+from practice.kuangjia import Test
 
 
 class Test001(Test):
