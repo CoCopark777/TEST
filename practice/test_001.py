@@ -23,30 +23,29 @@ class Test001(Test):
         具体步骤
 
         """
-        try:
-            self.driver = webdriver.Chrome()
-            self.driver.get('http://www.weather.com.cn/')
-            print("再次登录中国天气网成功，准备进入登录界面")
-            time.sleep(2)
-            # 点击登录
-            self.driver.find_element_by_class_name("login-icon").click()
-            print("点击登录成功")
-            time.sleep(2)
-            self.driver.find_element_by_id("username").send_keys("825510546@qq.com")
-            print("输入账号")
-            time.sleep(1)
-            self.driver.find_element_by_id("password").send_keys("test0925")
-            print("输入密码")
-            time.sleep(1)
-            self.driver.find_element_by_id("loginBtnId").click()
-            print("点击登录按钮")
-            time.sleep(2)
-            print(self.driver.current_url)
-            assert 'http://www.weather.com.c/' == self.driver.current_url
-            print('登陆成功.')
-            time.sleep(2)
-        except Exception as e:
-            print("登录失败", e)
+
+        self.driver = webdriver.Chrome()
+        self.driver.get('http://www.weather.com.cn/')
+        print("再次登录中国天气网成功，准备进入登录界面")
+        time.sleep(2)
+        # 点击登录
+        self.driver.find_element_by_class_name("login-icon").click()
+        print("点击登录成功")
+        time.sleep(2)
+        self.driver.find_element_by_id("username").send_keys("825510546@qq.com")
+        print("输入账号")
+        time.sleep(1)
+        self.driver.find_element_by_id("password").send_keys("test0925")
+        print("输入密码")
+        time.sleep(1)
+        self.driver.find_element_by_id("loginBtnId").click()
+        print("点击登录按钮")
+        time.sleep(2)
+        print(self.driver.current_url)
+        # 预期失败
+        assert 'http://www.weather.com.c/' == self.driver.current_url
+        print('登陆成功.')
+        time.sleep(2)
 
     def post_condition_func(self):
         """
