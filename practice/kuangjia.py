@@ -1,5 +1,9 @@
 # coding=utf-8
 import pytest
+import logging
+
+logging.basicConfig(level=logging.WARN, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
 
 
 class Test:

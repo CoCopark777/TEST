@@ -2,7 +2,7 @@
 #   web弹窗操作
 __author__ = 'LGF'
 
-from practice.kuangjia import Test
+from practice.kuangjia import Test, logger
 from selenium import webdriver
 import time
 
@@ -25,18 +25,18 @@ class Test004(Test):
         window1 = self.driver.find_element_by_id('b1')
         window2 = self.driver.find_element_by_id('b2')
         window1.click()
-        print("点击告警窗口1")
+        logger.info("点击告警窗口1")
 
         self.driver.switch_to.alert.accept()
-        print("点击接受")
+        logger.info("点击接受")
         time.sleep(5)
         window1.click()
         self.driver.switch_to.alert.dismiss()
-        print("点击取消")
+        logger.info("点击取消")
         time.sleep(5)
 
         window2.click()
-        print("点击弹窗2")
+        logger.info("点击弹窗2")
         self.driver.switch_to.alert.send_keys("hello")
         time.sleep(5)
         self.driver.switch_to.alert.accept()
