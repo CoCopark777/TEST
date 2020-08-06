@@ -19,7 +19,8 @@ def get_test():
 
     """
     # 获取本地时间
-    localtime = ('%Y-%m-%d %H:%M%S', time.localtime(time.time()))
+    localtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+    print(localtime)
     # 如果当前存在testcase文件，删除此文件
     if os.path.isdir("D:\\testcase"):
         shutil.rmtree("D:\\testcase")
@@ -50,20 +51,22 @@ def get_test():
         step_pre = dict_temp['pre_condition'].split('\n')
         step_list = dict_temp['test_step'].split('\n')
         test_case_name = format('tc_%s.py' % case_num)
+        print("case_num:%s,step_pre:%s,step_list:%s,test_case_name:%s" % (case_num,step_pre,step_list,test_case_name))
         file = open("D:\\testcase\\'" + test_case_name, 'w+', encoding='UTF-8')
-        info = """coding = utf-8
-        \"\"\"
-        ------------
-        文件名:    %s
-        描述:
-        作者:     %s
-        创建日期:   %s
-        ------------
-        \"\"\"
+        info = """# coding = utf-8
+\"\"\"
+------------
+文件名:    %s
+描述:
+作者:     %s
+创建日期:   %s
+------------
+\"\"\"
+from practice import kuangjia
         """ % (dict_temp['name'], creater, localtime)
 
         info1 = """
-calss Test_%s(Tset):        
+class Test_%s(Tset):        
         """ % case_num
 
         info2 = """
@@ -73,12 +76,13 @@ calss Test_%s(Tset):
 
         info3 = """
         \"\"\"
-    # 用例前置条件
-    print("用例前置条件")
+        # 用例前置条件
+        print("用例前置条件")
     
     def test_procedure(self):
         \"\"\"
         """
+
         info4 = """
         :return:
         \"\"\"
@@ -92,23 +96,27 @@ calss Test_%s(Tset):
         print("脚本环境恢复")    
         """
 
+        # 文件头，包括用例名，作者，时间
         file.write(info)
+        # 换行
         file.write('\n')
+        # class 内容
         file.write(info1)
-        file.write('\n  ')
-        file.write('"""\n   ')
+        file.write('\n        ')
+        file.write('"""\n        ')
         for step in step_list:
             file.write('%s\n' % step)
-            file.write('    ')
+            file.write('        ')
         file.write('"""\n')
         file.write(info2)
         for step in step_pre:
-            file.write(step)
+            file.write('%s\n' % step)
+            file.write('        ')
         file.write(info3)
 
         file.write(info4)
         for step in step_list:
-            file.write('self.logger.step("%s")\n    ' % step)
+            file.write('self.logger.step("%s")\n        ' % step)
         file.write(info5)
         file.close()
 

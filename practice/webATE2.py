@@ -4,6 +4,7 @@
 from selenium import webdriver
 from practice.kuangjia import Test
 import time
+from selenium.webdriver.common.action_chains import ActionChains    # 连贯操作需要,如悬浮鼠标才出现选项，单一操作无法达成
 
 
 class Test002(Test):
@@ -12,7 +13,7 @@ class Test002(Test):
         前置条件
         :return:
         """
-    print("进入前置准备条件")
+        print("进入前置准备条件")
 
     def test_ceshibuzhou(self):
         """
@@ -20,26 +21,24 @@ class Test002(Test):
         :return:
         """
         self.driver = webdriver.Chrome()
-        # 一个不错的练习地址
-        self.driver.get("https://liushilive.github.io/html_example/index1.html")
-        print("打开练习网址 https://liushilive.github.io/html_example/index1.html ")
-        # 登录窗口位置定义
-        self.ele_user = self.driver.find_element_by_id("uid")
-        self.ele_pwd = self.driver.find_element_by_id("pwd")
-
-        # 先清空登录窗口内容
-        self.ele_user.clear()
-
-        # 输入账号密码进行登录
-        self.ele_user.send_keys("admin")
-        time.sleep(1)
-        self.ele_pwd.send_keys("123456")
-        time.sleep(1)
-        # 点击确认
-        self.submit = self.driver.find_element_by_xpath("/html/body/div[5]/div/form/input[1]")
-        self.submit.click()
+        self.driver.get("https://www.baidu.com/")
+        print("打开练习网址 https://www.baidu.com/")
+        self.driver.implicitly_wait(10)
+        time.sleep(2)
+        # 点击搜索框旁的内容
+        move1 = self.driver.find_element_by_id("s-usersetting-top")
+        ActionChains(self.driver).move_to_element(move1).perform()  #按顺序操作,鼠标移动到设置
+        print("按顺序操作,鼠标移动到设置")
+        self.driver.find_element_by_link_text("搜索设置").click()  #点击搜索设置
+        print("点击搜索设置")
         time.sleep(5)
-        print("点击登录成功")
+        self.driver.find_element_by_id('nr_2').click()  #点击每页20条
+        print("点击每页20条")
+        time.sleep(5)
+        self.driver.find_element_by_link_text('保存设置').click()  #保存设置
+        print("保存设置")
+        time.sleep(1)
+        self.driver.switch_to.alert.accept()
 
     def post_condition_func(self):
         print("环境恢复")

@@ -12,11 +12,11 @@ class Test001(Test):
 
         """
         self.driver = webdriver.Chrome()
-        self.driver.get('http://www.weather.com.cn/')
-        print("登录中国天气网成功")
-        time.sleep(2)
-        self.driver.quit()
-        print("退出中国天气网")
+        # self.driver.get('http://www.weather.com.cn/')
+        # print("登录中国天气网成功")
+        # time.sleep(2)
+        # self.driver.quit()
+        # print("退出中国天气网")
 
     def test_procedure(self):
         """
@@ -30,7 +30,7 @@ class Test001(Test):
         time.sleep(2)
         # 点击登录
         self.driver.find_element_by_class_name("login-icon").click()
-        print("点击登录成功")
+        print("点击登录按钮")
         time.sleep(2)
         self.driver.find_element_by_id("username").send_keys("825510546@qq.com")
         print("输入账号")
